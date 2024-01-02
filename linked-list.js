@@ -28,19 +28,65 @@ class LinkedList {
     }
     this.tail.next = newNode;
     this.tail = newNode;
+    this.length += 1;
   }
 
   /** unshift(val): add new value to start of list. */
 
-  unshift(val) {}
+  unshift(val) {
+    let newNode = new Node(val);
+    if (!this.head) {
+      //if list is empty set both hhead and tail to new node
+      this.head = newNode;
+      this.tail = newNode;
+    } else {
+      newNode.next = this.head;
+      this.head = newNode;
+    }
+    if (!newNode.next) {
+      this.tail = newNode;
+    }
+    this.length += 1;
+  }
 
   /** pop(): return & remove last item. */
 
-  pop() {}
+  pop() {
+    // if list is empty
+    if (!this.head) return undefined;
+    //if not empty
+    let current = this.head;
+    let newTail = current;
+    while (current.next) {
+      newTail = current;
+      current = current.next;
+    }
+    this.tail = newTail;
+    this.tail.next = null;
+    this.length = this.length - 1;
+    //if one item in linked list
+    if (this.length == 0) {
+      this.head = null;
+      this.tail = null;
+    }
+    return current;
+  }
 
   /** shift(): return & remove first item. */
 
-  shift() {}
+  shift() {
+    if (!this.head) return undefined;
+
+    let current = this.head;
+    let newHead = this.head.next;
+    this.head = newHead;
+    this.length = this.length - 1;
+    if (this.length == 0) {
+      this.head = null;
+      this.tail = null;
+    }
+    return current;
+  }
 
   /** getAt(idx): get val at idx. */
 
