@@ -25,9 +25,11 @@ class LinkedList {
     if (!this.head) {
       this.head = newNode;
       this.tail = newNode;
+    } else {
+      this.tail.next = newNode;
+      this.tail = newNode;
     }
-    this.tail.next = newNode;
-    this.tail = newNode;
+
     this.length += 1;
   }
 
@@ -90,7 +92,13 @@ class LinkedList {
 
   /** getAt(idx): get val at idx. */
 
-  getAt(idx) {}
+  getAt(idx) {
+    //think this is node method.  will redo when finish node.js
+    if (idx > this.length || idx < 0) {
+      throw new Error("Invalid index.");
+    }
+    return this._get(idx).val;
+  }
 
   /** setAt(idx, val): set val at idx to val */
 
@@ -106,7 +114,27 @@ class LinkedList {
 
   /** average(): return an average of all values in the list */
 
-  average() {}
+  average() {
+    if (this.length === 0) return 0;
+    let total = 0;
+    let current = this.head;
+    while (current) {
+      total += current.val;
+      current = current.next;
+    }
+    return total / this.length;
+  }
 }
 
-module.exports = LinkedList;
+// let count = new LinkedList();
+// count.push(10);
+
+// let ten = count.push(10);
+// let nine = count.unshift(9);
+// let eight = count.unshift(8);
+// let seven = count.unshift(7);
+// this.head = seven;
+// ten = this.tail;
+// ten.next = null;
+// console.log(count);
+// module.exports = LinkedList;
